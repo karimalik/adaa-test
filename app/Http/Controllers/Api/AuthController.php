@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\UserRegisterNotification;
 use App\Http\Controllers\Api\BaseController as BaseController;
 
 class AuthController extends BaseController
@@ -49,6 +50,8 @@ class AuthController extends BaseController
         $user = User::create($data);
         $success['token'] = $user->createToken('API TOKEN')->plainTextToken;
         $success['name'] = $user->name;
+
+        $user->notify(new UserRegisterNotification($user));
 
         return $this->sendResponse($success, 'User register successfully');
     }

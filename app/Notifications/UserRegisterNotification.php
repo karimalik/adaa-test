@@ -11,12 +11,14 @@ class UserRegisterNotification extends Notification
 {
     use Queueable;
 
+    public $user;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -35,8 +37,9 @@ class UserRegisterNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('Welcome, ' .$notifiable->name. ' Your account has been created successfully')
+                    ->line('Please to the button to login you.')
+                    ->action('Connexion', url('http://localhost:8000/api/signin'))
                     ->line('Thank you for using our application!');
     }
 
