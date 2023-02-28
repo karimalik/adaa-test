@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('users/{id}', [UserController::class, 'show']);
     Route::post('users', [UserController::class, 'store']);
     Route::put('users/{user}', [UserController::class, 'update']);
+    Route::patch('users/{id}', [UserController::class, 'updateEmail']);
     Route::delete('users/{user}', [UserController::class, 'delete']);
 });
 #endregion

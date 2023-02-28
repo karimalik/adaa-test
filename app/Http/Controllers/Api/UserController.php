@@ -140,4 +140,19 @@ class UserController extends BaseController
 
         return $this->sendResponse([], 'User deleted successfully');
     }
+    
+    /**
+     * update single field [email]
+     * @author karim kompissi <karimkompissi@gmail.com>
+     * @param int $id
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEmail(Request $request, $id) {
+        $user = User::find($id);
+        $user->email = $request->email;
+        $user->save();
+
+        return $this->sendResponse($user, 'Email updated successfully');
+    }
 }
